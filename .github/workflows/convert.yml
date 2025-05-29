@@ -1,20 +1,20 @@
-name: Convert all Markdown to PDF
-
-on:
-  push:
-    branches: ["main"]          # Ejecútalo en cada push a main
-  workflow_dispatch:            # Botón “Run workflow” en GitHub
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:           # <-- ya que vas a hacer push desde el workflow
+      contents: write
 
-    container:                  # Imagen que trae Pandoc + LaTeX preinstalados
-      image: pandoc/latex:latest
+    container:
+      image: pandoc/latex:latest   # seguimos en el mismo contenedor
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+
+    - name: Install Git inside container   # <── NUEVO
+      run: |
+        apt-get update -y
+        apt-get install -y git
 
     - name: Convert every .md in docs/ to PDF
       run: |
