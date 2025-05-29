@@ -1,3 +1,10 @@
+name: Convert all Markdown to PDF
+
+on:
+  push:
+    branches: ["main"]          # Ejecútalo en cada push a main
+  workflow_dispatch:            # Botón “Run workflow” en GitHub
+
 jobs:
   build:
     runs-on: ubuntu-latest
