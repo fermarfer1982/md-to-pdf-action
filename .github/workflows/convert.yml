@@ -17,7 +17,7 @@ jobs:
       image: pandoc/latex:latest   # Alpine + Pandoc + LaTeX
 
     steps:
-# --- dentro de jobs.build.steps ---
+
   # 1. Instalar Git y Bash en el contenedor Alpine
   - name: Install Git + Bash in container
     run: apk add --no-cache git bash
