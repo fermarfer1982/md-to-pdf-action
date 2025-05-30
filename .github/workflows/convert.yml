@@ -9,9 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write           # para commitear si quisieras
-      pages: write              # para publicar en gh-pages
-      id-token: write           # requerido por Pages deploy
+      contents: write       # para commitear si quisieras
+      pages: write          # para publicar en gh-pages
+      id-token: write       # requerido por Pages deploy
 
     container:
       image: pandoc/latex:latest   # Alpine + Pandoc + LaTeX
