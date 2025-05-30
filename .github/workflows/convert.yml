@@ -18,8 +18,8 @@ jobs:
 
     steps:
     # 1. Git dentro del contenedor
-    - name: Install Git
-      run: apk add --no-cache git
+    - name: Install Git (+bash) inside container
+      run: apk add --no-cache git bash
 
     # 2. Checkout completo con .git
     - uses: actions/checkout@v4
