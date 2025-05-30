@@ -38,6 +38,7 @@ jobs:
 
     # 4. Generar index.html minimal con Bootstrap
     - name: Build index.html
+      shell: bash  
       run: |
         shopt -s nullglob            # ← evita que el patrón quede sin expandir
 
