@@ -1,5 +1,9 @@
 name: Build docs → PDF & DOCX + publish to Pages
 
+env:
+  DOC_DIR: docs        # carpeta de entrada
+  OUT_DIR: dist        # carpeta de salida
+
 on:
   push:
     branches: [main]
@@ -30,12 +34,12 @@ jobs:
       - name: Convert Markdown to PDF & DOCX
         shell: bash
         run: |
-          mkdir -p dist
+          mkdir -p "$OUT_DIR"
           shopt -s nullglob
-          for f in docs/*.md; do
+          for f in "$DOC_DIR"/*.md; do
             base=$(basename "$f" .md)
-            pandoc "$f" -o "dist/${base}.pdf"  --pdf-engine=xelatex
-            pandoc "$f" -o "dist/${base}.docx"
+            pandoc "$f" -o "$OUT_DIR/${base}.pdf"  --pdf-engine=xelatex
+            pandoc "$f" -o "$OUT_DIR/${base}.docx"
           done
 
       # 4. Construir index.html con Bootstrap listando SOLO los archivos existentes
@@ -58,7 +62,7 @@ jobs:
             <script>const files = [
           HTML
 
-          for f in dist/*.pdf dist/*.docx; do
+          for f in "$OUT_DIR"/*.pdf "$OUT_DIR"/*.docx; do
             [ -e "$f" ] || continue
             name=$(basename "$f")
             echo "  { file: '$name' }," >> dist/index.html
@@ -88,5 +92,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: ${{ env.OUT_DIR }}
           publish_branch: gh-pages
